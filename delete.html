@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>RailsShark — Request Account & Data Deletion</title>
+  <style>
+    body { font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; line-height:1.5; margin:0; padding:24px; color:#111; background:#f7f8fb; }
+    .wrap { max-width:900px; margin:28px auto; background:#fff; padding:28px; border-radius:10px; box-shadow:0 6px 24px rgba(12,18,28,0.06); }
+    h1 { margin:0 0 8px; font-size:24px; }
+    p.lead { margin:6px 0 18px; color:#333; }
+    .actions { display:flex; gap:12px; flex-wrap:wrap; margin:18px 0; }
+    .btn { display:inline-block; padding:12px 18px; border-radius:8px; text-decoration:none; font-weight:600; }
+    .btn-primary { background:#0b66ff; color:#fff; }
+    .btn-alt { background:#eef2ff; color:#0b66ff; border:1px solid rgba(11,102,255,0.08); }
+    section { margin-top:18px; }
+    ul { margin:10px 0 0 20px; }
+    .note { font-size:13px; color:#555; margin-top:12px; }
+    .data-grid { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:12px; }
+    .card { background:#fafafa; padding:12px; border-radius:8px; border:1px solid #f0f0f0; }
+    footer { margin-top:22px; font-size:13px; color:#666; }
+    @media (max-width:640px) { .data-grid { grid-template-columns:1fr; } }
+  </style>
+</head>
+<body>
+  <div class="wrap" role="main">
+    <header>
+      <h1>RailsShark, Data Deletion and Account Removal</h1>
+      <p class="lead">If you want your RailsShark account and associated data deleted, you can request deletion here. If you prefer email, contact us at the address below.</p>
+    </header>
+
+    <div class="actions" aria-hidden="false">
+      <!-- prominent Delete link required by Google Play Data safety form -->
+      <a class="btn btn-primary" href="https://railsshark.github.io/RailsShark/delete" rel="noopener noreferrer" target="_blank">
+        Request account deletion (self-serve)
+      </a>
+
+      <!-- mailto fallback -->
+      <a class="btn btn-alt" href="mailto:railsshark@gmail.com?subject=Request%20Account%20Deletion%20%E2%80%93%20RailsShark">
+        Email us: railsshark@gmail.com
+      </a>
+    </div>
+
+    <section aria-labelledby="how">
+      <h2 id="how">How to request deletion</h2>
+      <ol>
+        <li>Click the "Request account deletion" button above to open the self-serve deletion page. Follow the on-screen steps to confirm which account you want removed.</li>
+        <li>If you prefer email, send a message from the email address registered with your RailsShark account to railsshark@gmail.com. Include your app username or registered email, and the words "Delete my account".</li>
+        <li>We will confirm receipt and may ask a single verification question to protect your account from unauthorized requests.</li>
+        <li>Once verified, we begin removal of your account and specified data. You will receive a confirmation email when the deletion is complete.</li>
+      </ol>
+      <p class="note">If you cannot access your registered email, include any other info that proves account ownership and we will guide you through verification steps.</p>
+    </section>
+
+    <section aria-labelledby="what">
+      <h2 id="what">What is deleted and what we keep</h2>
+      <div class="data-grid">
+        <div class="card">
+          <strong>Data that will be deleted</strong>
+          <ul>
+            <li>Account profile (display name, profile photo)</li>
+            <li>Account credentials stored on our servers (we do not store plain text passwords)</li>
+            <li>User-generated content, such as posts, uploaded media, and profile fields, unless it is shared with other users and cannot be removed without affecting them</li>
+            <li>Personal identifiers used to link you to the account (email, phone number) from active records</li>
+            <li>App-specific settings and preferences tied to your account</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <strong>Data that may be retained</strong>
+          <ul>
+            <li>System logs and audit records required for security and fraud prevention, retained for up to 90 days</li>
+            <li>Transactional records needed for legal or billing reasons, retained for up to 3 years where applicable</li>
+            <li>Backups that include your data, which are retained for a limited period; such backups are overwritten or scrubbed during routine retention cycles (typically within 30 to 90 days)</li>
+            <li>Data that cannot be deleted for legal reasons or that includes content contributed by other users</li>
+          </ul>
+        </div>
+      </div>
+      <p class="note">If you need exact retention timelines for a specific item, mention it in your request and we will include precise dates in our confirmation.</p>
+    </section>
+
+    <section aria-labelledby="processing">
+      <h2 id="processing">Processing time and verification</h2>
+      <p>We aim to acknowledge deletion requests within 3 business days, and to complete deletions within 30 days of verification, unless a longer retention period is required by law or to resolve disputes. If we cannot comply fully, we will explain what is retained and why.</p>
+    </section>
+
+    <section aria-labelledby="help">
+      <h2 id="help">Need help or have questions?</h2>
+      <p>Contact us at <a href="mailto:railsshark@gmail.com">railsshark@gmail.com</a>. Include your RailsShark username or the email associated with your account to speed up verification.</p>
+    </section>
+
+    <footer>
+      <p>Developer: RailsShark. This page explains how to request account and data deletion for the RailsShark app, as required for visibility on the Google Play Store data safety section.</p>
+    </footer>
+  </div>
+</body>
+</html>
