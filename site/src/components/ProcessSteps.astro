@@ -1,0 +1,88 @@
+---
+import { steps } from '../data/process';
+---
+<ol class="route">
+  {steps.map((s, i) => (
+    <li>
+      <span class="route__n" aria-hidden="true">{i + 1}</span>
+      <h3>{s.name}</h3>
+      <p>{s.body}</p>
+    </li>
+  ))}
+</ol>
+
+<style>
+  .route {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: var(--s5);
+    position: relative;
+  }
+
+  /* The course line joining the steps. */
+  .route::before {
+    content: '';
+    position: absolute;
+    left: 1.2rem;
+    right: 0;
+    top: 1.2rem;
+    border-top: 2px dashed var(--line);
+  }
+
+  .route li {
+    position: relative;
+    display: grid;
+    gap: var(--s3);
+    align-content: start;
+  }
+
+  .route__n {
+    display: grid;
+    place-items: center;
+    width: 2.4rem;
+    height: 2.4rem;
+    border-radius: 50%;
+    border: 2px solid var(--accent);
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--font-display);
+    font-stretch: var(--display-stretch);
+    font-weight: 700;
+    margin-bottom: var(--s2);
+  }
+
+  .route h3 {
+    font-size: var(--step-1);
+  }
+
+  .route p {
+    color: var(--muted);
+    font-size: 0.97rem;
+  }
+
+  @media (max-width: 1000px) {
+    .route {
+      grid-template-columns: 1fr;
+      gap: var(--s6);
+    }
+    .route::before {
+      left: 1.2rem;
+      right: auto;
+      top: 1.2rem;
+      bottom: 0;
+      border-top: 0;
+      border-left: 2px dashed var(--line);
+    }
+    .route li {
+      padding-left: 3.6rem;
+    }
+    .route__n {
+      position: absolute;
+      left: 0;
+      top: 0;
+    }
+  }
+</style>

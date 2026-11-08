@@ -1,0 +1,136 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHead from '../components/PageHead.astro';
+import CtaBand from '../components/CtaBand.astro';
+import { site, stats } from '../config/site';
+import { principles } from '../data/process';
+---
+<Base title="About" description={`RailsShark is a software engineering studio founded in ${site.founded} in Islamabad, building for clients worldwide.`}>
+  <PageHead
+    title="An engineering studio, not an agency."
+    lede={`RailsShark started in Islamabad in ${site.founded}, building Android and iOS apps for e-commerce and retail. Since then our engineers have shipped more than fifty apps, used by over a million people.`}
+  />
+
+  <section class="section">
+    <div class="wrap about">
+      <div class="prose">
+        <p>The work has grown with the apps. Shipping a mobile product well means owning what sits behind it too, so today we also build the backends, cloud infrastructure, release pipelines and connected devices that those apps depend on.</p>
+        <p>We are a small, senior team. The people on your first call have led engineering teams, run releases for apps with real traffic, and been on call when production broke. They are also the people who write your code.</p>
+        <p>We work remotely with clients around the world, from first-time founders with an idea to established companies that need a second team they can trust with a hard problem.</p>
+      </div>
+      <ul class="about__stats">
+        {stats.map((s) => (
+          <li>
+            <span class="about__value">{s.value}</span>
+            <span>{s.label}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="principles-title">
+    <div class="wrap">
+      <div class="section__head">
+        <h2 id="principles-title">What we hold ourselves to</h2>
+      </div>
+      <ul class="principles">
+        {principles.map((p) => (
+          <li>
+            <h3>{p.name}</h3>
+            <p>{p.body}</p>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="rec-title">
+    <div class="wrap">
+      <div class="section__head">
+        <h2 id="rec-title">Recognition</h2>
+      </div>
+      <ul class="recog">
+        <li>
+          <h3>Civic Hackathon 2020, second place</h3>
+          <p>An Android, iOS and web MVP for waste oil recycling, built in six days.</p>
+        </li>
+        <li>
+          <h3>SOFTEC 2018, runner-up</h3>
+          <p>A mobile MVP with blockchain integration, at FAST NUCES' national software competition.</p>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <CtaBand />
+</Base>
+
+<style>
+  .about {
+    display: grid;
+    grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+    gap: var(--s8);
+    align-items: start;
+  }
+
+  .prose p {
+    font-size: var(--step-1);
+    line-height: 1.55;
+  }
+
+  .about__stats {
+    list-style: none;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--s6) var(--s5);
+    padding: var(--s6);
+    background: var(--surface);
+    border-radius: var(--r-lg);
+  }
+
+  .about__stats li {
+    display: grid;
+    gap: var(--s1);
+    color: var(--muted);
+  }
+
+  .about__value {
+    font-family: var(--font-display);
+    font-stretch: var(--display-stretch);
+    font-weight: 700;
+    font-style: italic;
+    font-size: var(--step-3);
+    line-height: 1;
+    color: var(--accent);
+  }
+
+  .principles,
+  .recog {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--s6) var(--s7);
+  }
+
+  .principles li,
+  .recog li {
+    display: grid;
+    gap: var(--s2);
+    padding-top: var(--s4);
+    border-top: 2px solid var(--line);
+  }
+
+  .principles p,
+  .recog p {
+    color: var(--muted);
+  }
+
+  @media (max-width: 860px) {
+    .about,
+    .principles,
+    .recog {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

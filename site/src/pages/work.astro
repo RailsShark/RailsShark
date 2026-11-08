@@ -1,0 +1,70 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHead from '../components/PageHead.astro';
+import WorkList from '../components/WorkList.astro';
+import CtaBand from '../components/CtaBand.astro';
+import { practice } from '../data/work';
+---
+<Base title="Work" description="Streaming, fintech, logistics, healthcare and marketplace products our engineers have built and shipped, with the results they reached.">
+  <PageHead
+    title="Work"
+    lede="A selection of products our engineers have designed, built and shipped across media, fintech, logistics, healthcare and more. Our clients' names stay private, so we describe the work and the results it reached."
+  />
+
+  <section class="section">
+    <div class="wrap">
+      <WorkList />
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="practice-title">
+    <div class="wrap">
+      <div class="section__head">
+        <h2 id="practice-title">How delivery improved</h2>
+        <p>Not every result is a download count. These come from the pipelines, refactors and team practices we put in place.</p>
+      </div>
+      <ul class="practice">
+        {practice.map((p) => (
+          <li>
+            <span class="practice__value">{p.value}</span>
+            <span>{p.label}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <CtaBand />
+</Base>
+
+<style>
+  .practice {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: var(--s6);
+  }
+
+  .practice li {
+    display: grid;
+    gap: var(--s2);
+    align-content: start;
+    color: var(--muted);
+  }
+
+  .practice__value {
+    font-family: var(--font-display);
+    font-stretch: var(--display-stretch);
+    font-weight: 700;
+    font-style: italic;
+    font-size: var(--step-3);
+    line-height: 1;
+    color: var(--ink);
+  }
+
+  @media (max-width: 860px) {
+    .practice {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+</style>

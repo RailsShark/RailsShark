@@ -1,0 +1,117 @@
+---
+import Logo from './Logo.astro';
+import { site } from '../config/site';
+import { channels } from '../lib/contact';
+import { services } from '../data/services';
+const year = new Date().getFullYear();
+---
+<footer class="foot">
+  <div class="wrap foot__grid">
+    <div class="foot__brand">
+      <a href="/" class="foot__mark" aria-label={`${site.name} home`}><Logo size={40} /></a>
+      <p>{site.name} is a software engineering studio based in {site.location}, working with teams worldwide since {site.founded}.</p>
+    </div>
+
+    <nav aria-label="Services">
+      <h2>Services</h2>
+      <ul>
+        {services.map((s) => <li><a href={`/services/${s.slug}/`}>{s.name}</a></li>)}
+      </ul>
+    </nav>
+
+    <nav aria-label="Studio">
+      <h2>Studio</h2>
+      <ul>
+        <li><a href="/work/">Work</a></li>
+        <li><a href="/process/">Process</a></li>
+        <li><a href="/about/">About</a></li>
+        <li><a href="/contact/">Contact</a></li>
+      </ul>
+    </nav>
+
+    <div>
+      <h2>Talk to us</h2>
+      <ul>
+        <li><a href={channels.email.href}>{channels.email.value}</a></li>
+        <li><a href={channels.whatsapp.href} rel="noopener">WhatsApp</a></li>
+        <li><a href={channels.calendly.href} rel="noopener">Book a call</a></li>
+        {site.social.github && <li><a href={site.social.github} rel="noopener">GitHub</a></li>}
+        {site.social.linkedin && <li><a href={site.social.linkedin} rel="noopener">LinkedIn</a></li>}
+      </ul>
+    </div>
+  </div>
+  <div class="wrap foot__base">
+    <span>&copy; {year} {site.name}</span>
+    <a href="/privacy/">App privacy policy</a>
+  </div>
+</footer>
+
+<style>
+  .foot {
+    border-top: 1px solid var(--line);
+    background: var(--surface);
+    padding-block: var(--s7) var(--s5);
+    font-size: 0.95rem;
+  }
+
+  .foot__grid {
+    display: grid;
+    grid-template-columns: 1.6fr 1fr 0.8fr 1fr;
+    gap: var(--s6);
+  }
+
+  .foot__mark {
+    display: inline-block;
+    color: var(--accent);
+    margin-bottom: var(--s4);
+  }
+
+  .foot__brand p {
+    color: var(--muted);
+    max-width: 34ch;
+  }
+
+  .foot h2 {
+    font-family: var(--font-body);
+    font-stretch: 100%;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--ink);
+    margin-bottom: var(--s3);
+  }
+
+  .foot ul {
+    list-style: none;
+    display: grid;
+    gap: var(--s2);
+  }
+
+  .foot a {
+    color: var(--muted);
+    text-decoration: none;
+  }
+
+  .foot a:hover {
+    color: var(--ink);
+  }
+
+  .foot__base {
+    display: flex;
+    justify-content: space-between;
+    gap: var(--s4);
+    margin-top: var(--s7);
+    padding-top: var(--s4);
+    border-top: 1px solid var(--line);
+    color: var(--muted);
+    font-size: var(--step--1);
+  }
+
+  @media (max-width: 860px) {
+    .foot__grid {
+      grid-template-columns: 1fr 1fr;
+    }
+    .foot__brand {
+      grid-column: 1 / -1;
+    }
+  }
+</style>

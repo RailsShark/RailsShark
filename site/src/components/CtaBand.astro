@@ -1,0 +1,104 @@
+---
+import { channels } from '../lib/contact';
+interface Props { title?: string; body?: string }
+const {
+  title = 'Tell us what you are building.',
+  body = 'A short message is enough to start. The first call is free, and you will hear back from an engineer, not a salesperson.',
+} = Astro.props;
+const list = [channels.email, channels.whatsapp, channels.calendly];
+---
+<section class="cta" aria-labelledby="cta-title">
+  <div class="wrap cta__inner">
+    <div>
+      <h2 id="cta-title">{title}</h2>
+      <p>{body}</p>
+      <a class="btn" href="/contact/">Start a project</a>
+    </div>
+    <ul class="cta__channels">
+      {list.map((c) => (
+        <li>
+          <a href={c.href} rel="noopener">
+            <span class="cta__label">{c.label}</span>
+            <span class="cta__value">{c.value}</span>
+          </a>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>
+
+<style>
+  .cta {
+    padding-block: var(--s8);
+    background: var(--accent);
+    color: var(--onAccent);
+  }
+
+  .cta__inner {
+    display: grid;
+    grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+    gap: var(--s7);
+    align-items: end;
+  }
+
+  .cta h2 {
+    font-size: clamp(var(--step-3), 5vw, var(--step-5));
+    max-width: 14ch;
+  }
+
+  .cta p {
+    margin-block: var(--s4) var(--s5);
+    font-size: var(--step-1);
+    line-height: 1.5;
+    max-width: 40ch;
+  }
+
+  .cta .btn {
+    --btn-bg: var(--onAccent);
+    --btn-ink: var(--accent);
+  }
+
+  .cta__channels {
+    list-style: none;
+    border-top: 1.5px solid currentColor;
+  }
+
+  .cta__channels li {
+    border-bottom: 1.5px solid currentColor;
+  }
+
+  .cta__channels a {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: var(--s4);
+    padding: var(--s4) 0;
+    text-decoration: none;
+  }
+
+  .cta__label {
+    font-family: var(--font-display);
+    font-stretch: var(--display-stretch);
+    font-weight: var(--display-weight);
+    font-size: var(--step-1);
+  }
+
+  .cta__value {
+    opacity: 0.8;
+  }
+
+  .cta__channels a:hover .cta__label {
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+  }
+
+  .cta :focus-visible {
+    outline-color: var(--onAccent);
+  }
+
+  @media (max-width: 860px) {
+    .cta__inner {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

@@ -1,0 +1,43 @@
+---
+import Base from '../layouts/Base.astro';
+---
+<Base title="Page not found" noindex>
+  <section class="nf">
+    <div class="wrap">
+      <p class="nf__depth" aria-hidden="true">404</p>
+      <h1>Nothing at this depth.</h1>
+      <p class="lede">The page you followed has moved or never existed. Start again from the home page, or tell us what you were looking for.</p>
+      <div class="nf__actions">
+        <a class="btn" href="/">Go to the home page</a>
+        <a class="btn btn--ghost" href="/contact/">Contact us</a>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .nf {
+    padding-block: var(--s8);
+    min-height: 70svh;
+    display: grid;
+    align-items: center;
+  }
+  .nf__depth {
+    font-family: var(--font-display);
+    font-stretch: var(--display-stretch);
+    font-weight: 700;
+    font-style: italic;
+    font-size: var(--step-4);
+    color: var(--accent);
+    margin-bottom: var(--s4);
+  }
+  .nf .lede {
+    margin-top: var(--s5);
+  }
+  .nf__actions {
+    display: flex;
+    gap: var(--s3);
+    flex-wrap: wrap;
+    margin-top: var(--s6);
+  }
+</style>

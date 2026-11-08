@@ -1,0 +1,61 @@
+---
+import Base from '../layouts/Base.astro';
+import Hero from '../components/Hero.astro';
+import ServiceIndex from '../components/ServiceIndex.astro';
+import WorkList from '../components/WorkList.astro';
+import ProcessSteps from '../components/ProcessSteps.astro';
+import Engage from '../components/Engage.astro';
+import CtaBand from '../components/CtaBand.astro';
+---
+<Base>
+  <Hero />
+
+  <section class="section" aria-labelledby="svc-title">
+    <div class="wrap">
+      <div class="section__head">
+        <h2 id="svc-title">What we build</h2>
+        <p>One team across the whole stack, from the firmware on a device to the app in someone's hand and the cloud in between.</p>
+      </div>
+      <ServiceIndex />
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="work-title">
+    <div class="wrap">
+      <div class="section__head">
+        <h2 id="work-title">Track record</h2>
+        <p>Products our engineers have designed, built and shipped. Client names stay private; the results are real.</p>
+      </div>
+      <WorkList limit={6} />
+      <p class="more"><a href="/work/">All work and delivery results</a></p>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="process-title">
+    <div class="wrap">
+      <div class="section__head">
+        <h2 id="process-title">How a project runs</h2>
+        <p>Plans are written down before code is, and you see working software at every step.</p>
+      </div>
+      <ProcessSteps />
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="engage-title">
+    <div class="wrap">
+      <div class="section__head">
+        <h2 id="engage-title">Ways to work with us</h2>
+      </div>
+      <Engage />
+    </div>
+  </section>
+
+  <CtaBand />
+</Base>
+
+<style>
+  .more {
+    margin-top: var(--s7);
+    font-weight: 600;
+  }
+</style>

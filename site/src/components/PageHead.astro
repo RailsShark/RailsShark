@@ -1,0 +1,41 @@
+---
+interface Props { title: string; lede?: string; crumb?: { href: string; label: string } }
+const { title, lede, crumb } = Astro.props;
+---
+<header class="page-head">
+  <svg class="page-head__lines" viewBox="0 0 600 300" preserveAspectRatio="none" aria-hidden="true">
+    {Array.from({ length: 9 }, (_, i) => (
+      <path d={`M${120 + i * 26} 300 C ${200 + i * 30} ${210 - i * 8}, ${330 + i * 22} ${250 - i * 14}, ${420 + i * 20} ${120 - i * 6} S ${560 + i * 6} ${30 + i * 4}, 620 ${10 + i * 10}`} />
+    ))}
+  </svg>
+  <div class="wrap">
+    {crumb && <a class="crumb" href={crumb.href}>{crumb.label}</a>}
+    <h1>{title}</h1>
+    {lede && <p class="lede">{lede}</p>}
+    <slot />
+  </div>
+</header>
+
+<style>
+  .page-head__lines {
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: min(60vw, 820px);
+    height: 100%;
+    z-index: -1;
+    opacity: 0.9;
+  }
+  .page-head {
+    isolation: isolate;
+  }
+  .page-head__lines path {
+    fill: none;
+    stroke: var(--contour);
+    stroke-width: 1.2;
+    vector-effect: non-scaling-stroke;
+  }
+  .page-head__lines path:nth-child(4n + 1) {
+    stroke: color-mix(in srgb, var(--contour) 65%, var(--muted));
+  }
+</style>

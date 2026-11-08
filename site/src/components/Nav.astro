@@ -1,0 +1,214 @@
+---
+import Logo from './Logo.astro';
+import { site } from '../config/site';
+
+const links = [
+  { href: '/services/', label: 'Services' },
+  { href: '/work/', label: 'Work' },
+  { href: '/process/', label: 'Process' },
+  { href: '/about/', label: 'About' },
+];
+const path = Astro.url.pathname;
+const isCurrent = (href: string) => path === href || path.startsWith(href);
+---
+<header class="nav" data-open="false">
+  <div class="wrap nav__inner">
+    <a class="nav__brand" href="/" aria-label={`${site.name} home`}>
+      <Logo size={30} class="nav__logo" />
+      <span>{site.name}</span>
+    </a>
+
+    <nav class="nav__links" aria-label="Main" id="nav-links">
+      <ul>
+        {links.map((l) => (
+          <li>
+            <a href={l.href} aria-current={isCurrent(l.href) ? 'page' : undefined}>{l.label}</a>
+          </li>
+        ))}
+      </ul>
+      <a class="btn nav__cta" href="/contact/">Start a project</a>
+    </nav>
+
+    <div class="nav__tools">
+      <button class="nav__icon" type="button" data-mode-toggle aria-label="Switch between dark and light">
+        <svg class="i-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.2" fill="currentColor"/><g stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2.5v2.2M12 19.3v2.2M4.6 4.6l1.6 1.6M17.8 17.8l1.6 1.6M2.5 12h2.2M19.3 12h2.2M4.6 19.4l1.6-1.6M17.8 6.2l1.6-1.6"/></g></svg>
+        <svg class="i-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.6A8.4 8.4 0 0 1 9.4 4a8.4 8.4 0 1 0 10.6 10.6z" fill="currentColor"/></svg>
+      </button>
+      <button class="nav__icon nav__menu" type="button" aria-controls="nav-links" aria-expanded="false" aria-label="Open menu" data-menu-toggle>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<script>
+  const root = document.documentElement;
+  document.querySelectorAll<HTMLButtonElement>('[data-mode-toggle]').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const next = root.dataset.mode === 'light' ? 'dark' : 'light';
+      root.dataset.mode = next;
+      try {
+        localStorage.setItem('rs-mode', next);
+      } catch {}
+      window.dispatchEvent(new CustomEvent('rs:mode', { detail: next }));
+    });
+  });
+
+  const nav = document.querySelector<HTMLElement>('.nav');
+  const menuBtn = document.querySelector<HTMLButtonElement>('[data-menu-toggle]');
+  menuBtn?.addEventListener('click', () => {
+    const open = nav?.dataset.open !== 'true';
+    if (nav) nav.dataset.open = String(open);
+    menuBtn.setAttribute('aria-expanded', String(open));
+    menuBtn.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && nav?.dataset.open === 'true') menuBtn?.click();
+  });
+</script>
+
+<style>
+  .nav {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: color-mix(in srgb, var(--bg) 82%, transparent);
+    backdrop-filter: blur(14px) saturate(1.4);
+    -webkit-backdrop-filter: blur(14px) saturate(1.4);
+    border-bottom: 1px solid color-mix(in srgb, var(--line) 70%, transparent);
+    view-transition-name: site-nav;
+  }
+
+  .nav__inner {
+    display: flex;
+    align-items: center;
+    gap: var(--s5);
+    min-height: 4.25rem;
+  }
+
+  .nav__brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-family: var(--font-display);
+    font-stretch: var(--display-stretch);
+    font-weight: var(--display-weight);
+    font-size: 1.2rem;
+    letter-spacing: -0.01em;
+    text-decoration: none;
+    margin-right: auto;
+  }
+
+  .nav__brand :global(.nav__logo) {
+    color: var(--accent);
+  }
+
+  .nav__links {
+    display: flex;
+    align-items: center;
+    gap: var(--s5);
+  }
+
+  .nav__links ul {
+    display: flex;
+    gap: var(--s5);
+    list-style: none;
+  }
+
+  .nav__links ul a {
+    text-decoration: none;
+    color: var(--muted);
+    font-weight: 500;
+    padding-block: 0.4rem;
+    border-bottom: 2px solid transparent;
+  }
+
+  .nav__links ul a:hover,
+  .nav__links ul a[aria-current='page'] {
+    color: var(--ink);
+    border-bottom-color: var(--accent);
+  }
+
+  .nav__cta {
+    min-height: 2.5rem;
+    padding: var(--s2) var(--s4);
+  }
+
+  .nav__tools {
+    display: flex;
+    gap: var(--s1);
+  }
+
+  .nav__icon {
+    display: grid;
+    place-items: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    border: 0;
+    border-radius: var(--r-md);
+    background: transparent;
+    color: var(--muted);
+    cursor: pointer;
+  }
+
+  .nav__icon:hover {
+    color: var(--ink);
+    background: var(--surface);
+  }
+
+  .nav__icon svg {
+    width: 1.25rem;
+    height: 1.25rem;
+  }
+
+  :global(:root[data-mode='dark']) .i-moon,
+  :global(:root[data-mode='light']) .i-sun {
+    display: none;
+  }
+
+  .nav__menu {
+    display: none;
+  }
+
+  @media (max-width: 860px) {
+    .nav__menu {
+      display: grid;
+    }
+
+    .nav__links {
+      position: absolute;
+      inset: 100% 0 auto 0;
+      flex-direction: column;
+      align-items: stretch;
+      gap: var(--s4);
+      padding: var(--s5) var(--gutter) var(--s6);
+      background: var(--bg);
+      border-bottom: 1px solid var(--line);
+      display: none;
+    }
+
+    .nav[data-open='true'] .nav__links {
+      display: flex;
+    }
+
+    .nav__links ul {
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .nav__links ul a {
+      display: block;
+      padding-block: var(--s3);
+      font-size: var(--step-1);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .nav__cta {
+      justify-content: center;
+    }
+
+    .nav__tools {
+      order: 3;
+    }
+  }
+</style>

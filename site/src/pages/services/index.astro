@@ -1,0 +1,18 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageHead from '../../components/PageHead.astro';
+import ServiceIndex from '../../components/ServiceIndex.astro';
+import CtaBand from '../../components/CtaBand.astro';
+---
+<Base title="Services" description="Mobile apps, backend and cloud, DevOps, IoT, security, AI integration, streaming and desktop software, from one engineering team.">
+  <PageHead
+    title="Services"
+    lede="Most products cross several of these lines. You work with one team that covers all of them, so nothing gets lost between vendors."
+  />
+  <section class="section">
+    <div class="wrap">
+      <ServiceIndex />
+    </div>
+  </section>
+  <CtaBand title="Not sure which service you need?" body="Describe the problem instead. We will tell you what it takes, including when the answer is a smaller project than you expected." />
+</Base>

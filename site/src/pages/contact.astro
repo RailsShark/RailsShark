@@ -1,0 +1,310 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHead from '../components/PageHead.astro';
+import { site } from '../config/site';
+import { channels } from '../lib/contact';
+import { services } from '../data/services';
+
+const { web3formsKey, calendly, email } = site.contact;
+---
+<Base title="Contact" description="Start a project with RailsShark by email, WhatsApp or a free 30 minute call.">
+  <PageHead
+    title="Start a project"
+    lede="Tell us what you are building and where you are stuck. An engineer will read it and reply, and the first call is free."
+  />
+
+  <section class="section">
+    <div class="wrap contact">
+      <form
+        class="form"
+        id="contact-form"
+        action="https://api.web3forms.com/submit"
+        method="POST"
+        data-key={web3formsKey}
+        data-email={email}
+        novalidate
+      >
+        <input type="hidden" name="access_key" value={web3formsKey} />
+        <input type="hidden" name="subject" value="New project enquiry from railsshark site" />
+        <input type="checkbox" name="botcheck" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true" />
+
+        <div class="field">
+          <label for="f-name">Your name</label>
+          <input id="f-name" name="name" type="text" autocomplete="name" required />
+        </div>
+        <div class="field">
+          <label for="f-email">Email</label>
+          <input id="f-email" name="email" type="email" autocomplete="email" required />
+        </div>
+        <div class="field">
+          <label for="f-company">Company <span class="opt">(optional)</span></label>
+          <input id="f-company" name="company" type="text" autocomplete="organization" />
+        </div>
+        <div class="field">
+          <label for="f-area">What do you need?</label>
+          <select id="f-area" name="area">
+            <option value="Not sure yet">Not sure yet</option>
+            {services.map((s) => <option value={s.name}>{s.name}</option>)}
+          </select>
+        </div>
+        <div class="field field--wide">
+          <label for="f-msg">About the project</label>
+          <textarea id="f-msg" name="message" rows="6" required placeholder="What are you building, who is it for, and is there a deadline?"></textarea>
+        </div>
+
+        <div class="form__foot field--wide">
+          <button class="btn" type="submit">Send message</button>
+          {!web3formsKey && <p class="form__note">Sends through your email app.</p>}
+        </div>
+        <p class="form__status field--wide" role="status" aria-live="polite"></p>
+      </form>
+
+      <aside class="side" aria-label="Other ways to reach us">
+        <h2>Prefer to talk?</h2>
+        <ul class="side__list">
+          <li>
+            <span class="side__label">Email</span>
+            <a href={channels.email.href}>{channels.email.value}</a>
+          </li>
+          <li>
+            <span class="side__label">WhatsApp</span>
+            <a href={channels.whatsapp.href} rel="noopener">{channels.whatsapp.ready ? channels.whatsapp.value : 'Ask for our number by email'}</a>
+          </li>
+          <li>
+            <span class="side__label">Book a call</span>
+            {calendly ? (
+              <button type="button" class="linkish" data-calendly={calendly}>Choose a time</button>
+            ) : (
+              <a href={channels.calendly.href}>Email us times that suit you</a>
+            )}
+          </li>
+        </ul>
+        <div class="calendly" hidden></div>
+        <p class="side__note">We use your details only to reply to you. Nothing is added to a mailing list.</p>
+      </aside>
+    </div>
+  </section>
+</Base>
+
+<script>
+  const form = document.querySelector<HTMLFormElement>('#contact-form');
+  const status = form?.querySelector<HTMLElement>('.form__status');
+
+  form?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    if (!form || !status) return;
+    if (!form.checkValidity()) {
+      form.reportValidity();
+      return;
+    }
+    const data = new FormData(form);
+    if (data.get('botcheck')) return;
+
+    const key = form.dataset.key;
+    if (!key) {
+      const body = `Name: ${data.get('name')}\nEmail: ${data.get('email')}\nCompany: ${data.get('company') || '-'}\nNeed: ${data.get('area')}\n\n${data.get('message')}`;
+      window.location.href = `mailto:${form.dataset.email}?subject=${encodeURIComponent('New project enquiry')}&body=${encodeURIComponent(body)}`;
+      status.textContent = 'Your email app should open with the message filled in. Press send there to reach us.';
+      return;
+    }
+
+    const btn = form.querySelector<HTMLButtonElement>('button[type=submit]');
+    if (btn) {
+      btn.disabled = true;
+      btn.textContent = 'Sending';
+    }
+    try {
+      const res = await fetch(form.action, { method: 'POST', headers: { Accept: 'application/json' }, body: data });
+      const json = await res.json();
+      if (!res.ok || !json.success) throw new Error(json.message || 'Request failed');
+      form.reset();
+      status.dataset.state = 'ok';
+      status.textContent = 'Message sent. We will reply to the email you gave us.';
+    } catch {
+      status.dataset.state = 'error';
+      status.textContent = `Message not sent. Check your connection and try again, or email ${form.dataset.email}.`;
+    } finally {
+      if (btn) {
+        btn.disabled = false;
+        btn.textContent = 'Send message';
+      }
+    }
+  });
+
+  // Calendly loads only when asked for, so the page stays light.
+  document.querySelector<HTMLButtonElement>('[data-calendly]')?.addEventListener('click', (e) => {
+    const btn = e.currentTarget as HTMLButtonElement;
+    const box = document.querySelector<HTMLElement>('.calendly');
+    if (!box) return;
+    if (!box.firstChild) {
+      const frame = document.createElement('iframe');
+      frame.src = `${btn.dataset.calendly}?hide_gdpr_banner=1&embed_type=Inline&embed_domain=${location.hostname}`;
+      frame.title = 'Book a call with RailsShark';
+      frame.loading = 'lazy';
+      box.appendChild(frame);
+    }
+    box.hidden = !box.hidden;
+    btn.textContent = box.hidden ? 'Choose a time' : 'Hide calendar';
+  });
+</script>
+
+<style>
+  .contact {
+    display: grid;
+    grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+    gap: var(--s8);
+    align-items: start;
+  }
+
+  .form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--s5);
+  }
+
+  .field {
+    display: grid;
+    gap: var(--s2);
+  }
+
+  .field--wide {
+    grid-column: 1 / -1;
+  }
+
+  label {
+    font-weight: 600;
+    font-size: 0.95rem;
+  }
+
+  .opt {
+    font-weight: 400;
+    color: var(--muted);
+  }
+
+  input,
+  select,
+  textarea {
+    width: 100%;
+    padding: var(--s3) var(--s4);
+    border: 1.5px solid var(--line);
+    border-radius: var(--r-md);
+    background: var(--surface);
+    color: var(--ink);
+    font: inherit;
+    line-height: 1.4;
+  }
+
+  textarea {
+    resize: vertical;
+  }
+
+  input:focus,
+  select:focus,
+  textarea:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 25%, transparent);
+  }
+
+  input:user-invalid,
+  textarea:user-invalid {
+    border-color: #e5484d;
+  }
+
+  ::placeholder {
+    color: color-mix(in srgb, var(--muted) 80%, transparent);
+  }
+
+  .hp {
+    position: absolute;
+    left: -9999px;
+  }
+
+  .form__foot {
+    display: flex;
+    align-items: center;
+    gap: var(--s4);
+    flex-wrap: wrap;
+  }
+
+  .form__note,
+  .side__note {
+    color: var(--muted);
+    font-size: var(--step--1);
+  }
+
+  .form__status:empty {
+    display: none;
+  }
+
+  .form__status {
+    padding: var(--s3) var(--s4);
+    border-left: 3px solid var(--accent);
+    background: var(--surface);
+  }
+
+  .form__status[data-state='error'] {
+    border-left-color: #e5484d;
+  }
+
+  .side {
+    padding: var(--s6);
+    background: var(--surface);
+    border-radius: var(--r-lg);
+    display: grid;
+    gap: var(--s5);
+  }
+
+  .side h2 {
+    font-size: var(--step-2);
+  }
+
+  .side__list {
+    list-style: none;
+    display: grid;
+    gap: var(--s4);
+  }
+
+  .side__list li {
+    display: grid;
+    gap: 0.15rem;
+  }
+
+  .side__label {
+    color: var(--muted);
+    font-size: var(--step--1);
+  }
+
+  .side__list a,
+  .linkish {
+    font-weight: 600;
+  }
+
+  .linkish {
+    padding: 0;
+    border: 0;
+    background: none;
+    color: inherit;
+    text-align: left;
+    text-decoration: underline;
+    text-decoration-color: var(--accent);
+    text-underline-offset: 0.2em;
+    cursor: pointer;
+    font-family: inherit;
+  }
+
+  .calendly iframe {
+    width: 100%;
+    height: 680px;
+    border: 0;
+    border-radius: var(--r-md);
+    background: #fff;
+  }
+
+  @media (max-width: 860px) {
+    .contact,
+    .form {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

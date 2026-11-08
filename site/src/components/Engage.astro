@@ -1,0 +1,41 @@
+---
+import { engagements } from '../data/process';
+---
+<div class="engage">
+  {engagements.map((e) => (
+    <div>
+      <h3>{e.name}</h3>
+      <p>{e.body}</p>
+    </div>
+  ))}
+</div>
+
+<style>
+  .engage {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--s6);
+  }
+
+  .engage > div {
+    padding: var(--s5);
+    background: var(--surface);
+    border-radius: var(--r-lg);
+  }
+
+  .engage h3 {
+    font-size: var(--step-2);
+    margin-bottom: var(--s3);
+  }
+
+  .engage p {
+    color: var(--muted);
+  }
+
+  @media (max-width: 860px) {
+    .engage {
+      grid-template-columns: 1fr;
+      gap: var(--s4);
+    }
+  }
+</style>

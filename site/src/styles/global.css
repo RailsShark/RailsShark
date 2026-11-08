@@ -1,0 +1,348 @@
+@import '@fontsource-variable/archivo/wdth.css';
+@import '@fontsource-variable/instrument-sans/wdth.css';
+
+/* ---------- Tokens (default: Abyss palette, Chart type) ---------- */
+:root {
+  --bg: #062530;
+  --surface: #0a3240;
+  --surface2: #0f3e4e;
+  --ink: #e6f0ec;
+  --muted: #93aeb1;
+  --line: #1d4b59;
+  --contour: #14485a;
+  --accent: #f2c14e;
+  --onAccent: #1d1600;
+
+  --font-display: 'Archivo Variable', 'Arial Narrow', sans-serif;
+  --font-body: 'Instrument Sans Variable', system-ui, sans-serif;
+  --display-stretch: 118%;
+  --display-weight: 800;
+
+  --radius: 6px;
+  --density: 1;
+  --ratio: 1.25;
+
+  --r-sm: calc(var(--radius) * 0.5);
+  --r-md: var(--radius);
+  --r-lg: calc(var(--radius) * 1.8);
+
+  --s1: calc(0.25rem * var(--density));
+  --s2: calc(0.5rem * var(--density));
+  --s3: calc(0.75rem * var(--density));
+  --s4: calc(1rem * var(--density));
+  --s5: calc(1.5rem * var(--density));
+  --s6: calc(2.25rem * var(--density));
+  --s7: calc(3.5rem * var(--density));
+  --s8: calc(5.5rem * var(--density));
+
+  --step-0: 1.0625rem;
+  --step--1: calc(var(--step-0) / var(--ratio));
+  --step-1: calc(var(--step-0) * var(--ratio));
+  --step-2: calc(var(--step-1) * var(--ratio));
+  --step-3: calc(var(--step-2) * var(--ratio));
+  --step-4: calc(var(--step-3) * var(--ratio));
+  --step-5: calc(var(--step-4) * var(--ratio));
+
+  --measure: 66ch;
+  --wrap: 1240px;
+  --gutter: clamp(1.25rem, 4vw, 3rem);
+  --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+
+  color-scheme: dark;
+}
+
+:root[data-mode='light'] {
+  --bg: #edf3f0;
+  --surface: #ffffff;
+  --surface2: #dfeae6;
+  --ink: #072a36;
+  --muted: #4a676d;
+  --line: #c3d6d2;
+  --contour: #b9d3d1;
+  --accent: #0d6e7c;
+  --onAccent: #ffffff;
+  color-scheme: light;
+}
+
+@view-transition {
+  navigation: auto;
+}
+
+/* ---------- Base ---------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  scroll-padding-top: 5rem;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: var(--step-0);
+  line-height: 1.6;
+  font-feature-settings: 'ss01', 'tnum' 0;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+img,
+svg,
+canvas {
+  display: block;
+  max-width: 100%;
+}
+
+a {
+  color: inherit;
+  text-decoration-color: color-mix(in srgb, var(--accent) 70%, transparent);
+  text-decoration-thickness: 0.08em;
+  text-underline-offset: 0.2em;
+}
+
+a:hover {
+  text-decoration-color: var(--accent);
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: var(--r-sm);
+}
+
+::selection {
+  background: var(--accent);
+  color: var(--onAccent);
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-display);
+  font-stretch: var(--display-stretch);
+  font-weight: var(--display-weight);
+  line-height: 1.05;
+  letter-spacing: -0.015em;
+  margin: 0;
+  text-wrap: balance;
+}
+
+h1 {
+  font-size: clamp(var(--step-4), 7.2vw, calc(var(--step-5) * 1.45));
+  line-height: 0.96;
+  letter-spacing: -0.03em;
+}
+
+h2 {
+  font-size: clamp(var(--step-3), 4.4vw, var(--step-4));
+}
+
+h3 {
+  font-size: var(--step-1);
+  letter-spacing: -0.005em;
+  line-height: 1.2;
+}
+
+p {
+  margin: 0;
+  max-width: var(--measure);
+  text-wrap: pretty;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+}
+
+.wrap {
+  width: min(100% - 2 * var(--gutter), var(--wrap));
+  margin-inline: auto;
+}
+
+.skip {
+  position: absolute;
+  left: var(--s4);
+  top: -4rem;
+  z-index: 100;
+  padding: var(--s2) var(--s4);
+  background: var(--accent);
+  color: var(--onAccent);
+  border-radius: var(--r-md);
+}
+
+.skip:focus {
+  top: var(--s4);
+}
+
+.lede {
+  font-size: var(--step-1);
+  line-height: 1.5;
+  color: var(--muted);
+  max-width: 52ch;
+}
+
+.muted {
+  color: var(--muted);
+}
+
+/* ---------- Buttons ---------- */
+.btn {
+  --btn-bg: var(--accent);
+  --btn-ink: var(--onAccent);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s2);
+  padding: var(--s3) var(--s5);
+  min-height: 2.9rem;
+  border: 1.5px solid var(--btn-bg);
+  border-radius: var(--r-md);
+  background: var(--btn-bg);
+  color: var(--btn-ink);
+  font: 600 var(--step-0) / 1 var(--font-body);
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform 0.15s var(--ease), background-color 0.15s, color 0.15s;
+}
+
+.btn:hover {
+  transform: translateY(-1px);
+}
+
+.btn:active {
+  transform: translateY(1px);
+}
+
+.btn--ghost {
+  --btn-bg: transparent;
+  --btn-ink: var(--ink);
+  border-color: var(--line);
+}
+
+.btn--ghost:hover {
+  border-color: var(--ink);
+}
+
+.btn svg {
+  width: 1.1em;
+  height: 1.1em;
+  flex: none;
+}
+
+/* ---------- Sections ---------- */
+.section {
+  padding-block: var(--s8);
+}
+
+.section + .section {
+  border-top: 1px solid var(--line);
+}
+
+.section__head {
+  display: grid;
+  gap: var(--s4);
+  margin-bottom: var(--s7);
+  max-width: 46rem;
+}
+
+.section__head p {
+  color: var(--muted);
+  font-size: var(--step-1);
+  line-height: 1.5;
+}
+
+/* ---------- Page header for inner pages ---------- */
+.page-head {
+  padding-block: calc(var(--s8) * 1.1) var(--s7);
+  border-bottom: 1px solid var(--line);
+  position: relative;
+  overflow: hidden;
+}
+
+.page-head h1 {
+  font-size: clamp(var(--step-3), 6vw, var(--step-5));
+  max-width: 18ch;
+}
+
+.page-head .lede {
+  margin-top: var(--s5);
+}
+
+.crumb {
+  display: inline-block;
+  margin-bottom: var(--s5);
+  color: var(--muted);
+  font-size: var(--step--1);
+  text-decoration: none;
+}
+
+.crumb:hover {
+  color: var(--ink);
+}
+
+/* ---------- Prose ---------- */
+.prose > * + * {
+  margin-top: var(--s4);
+}
+
+.prose h2 {
+  font-size: var(--step-2);
+  margin-top: var(--s7);
+}
+
+.prose h3 {
+  margin-top: var(--s6);
+}
+
+.prose ul {
+  padding-left: 1.2em;
+  max-width: var(--measure);
+}
+
+.prose li + li {
+  margin-top: var(--s2);
+}
+
+/* ---------- Tags ---------- */
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s2);
+  list-style: none;
+}
+
+.tags li {
+  padding: 0.2em 0.65em;
+  border: 1px solid var(--line);
+  border-radius: var(--r-sm);
+  color: var(--muted);
+  font-size: var(--step--1);
+  line-height: 1.5;
+}
+
+/* ---------- Motion preferences ---------- */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  @view-transition {
+    navigation: none;
+  }
+}
+
+:root[data-motion='off'] *,
+:root[data-motion='off'] *::before,
+:root[data-motion='off'] *::after {
+  animation: none !important;
+  transition: none !important;
+}

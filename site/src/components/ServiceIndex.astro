@@ -1,0 +1,68 @@
+---
+import { services } from '../data/services';
+---
+<ul class="svc">
+  {services.map((s) => (
+    <li>
+      <a href={`/services/${s.slug}/`} class="svc__row">
+        <h3 class="svc__name">{s.name}</h3>
+        <p class="svc__summary">{s.summary}</p>
+        <p class="svc__stack">{s.stack.slice(0, 4).join(', ')}</p>
+      </a>
+    </li>
+  ))}
+</ul>
+
+<style>
+  .svc {
+    list-style: none;
+    border-top: 1px solid var(--line);
+  }
+
+  .svc li {
+    border-bottom: 1px solid var(--line);
+  }
+
+  .svc__row {
+    display: grid;
+    grid-template-columns: minmax(0, 5fr) minmax(0, 5fr) minmax(0, 3fr);
+    gap: var(--s5);
+    align-items: baseline;
+    padding: var(--s5) var(--s3);
+    text-decoration: none;
+    border-radius: var(--r-md);
+    transition: background-color 0.2s var(--ease);
+  }
+
+  .svc__name {
+    font-size: var(--step-2);
+    transition: color 0.2s var(--ease);
+  }
+
+  .svc__summary {
+    color: var(--muted);
+  }
+
+  .svc__stack {
+    color: var(--muted);
+    font-size: var(--step--1);
+    opacity: 0.85;
+  }
+
+  .svc__row:hover,
+  .svc__row:focus-visible {
+    background: var(--surface);
+  }
+
+  .svc__row:hover .svc__name {
+    color: var(--accent);
+  }
+
+  @media (max-width: 860px) {
+    .svc__row {
+      grid-template-columns: 1fr;
+      gap: var(--s2);
+      padding-inline: 0;
+    }
+  }
+</style>

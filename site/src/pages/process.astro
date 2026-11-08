@@ -1,0 +1,120 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHead from '../components/PageHead.astro';
+import ProcessSteps from '../components/ProcessSteps.astro';
+import Engage from '../components/Engage.astro';
+import CtaBand from '../components/CtaBand.astro';
+---
+<Base title="Process" description="How a RailsShark project runs, from a free discovery call to a written architecture plan, short build cycles, launch and support.">
+  <PageHead
+    title="How we work"
+    lede="Every project follows the same route. It keeps surprises early, when they are cheap, and gives you working software to judge at every step."
+  />
+
+  <section class="section">
+    <div class="wrap">
+      <ProcessSteps />
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="engage-title">
+    <div class="wrap">
+      <div class="section__head">
+        <h2 id="engage-title">Ways to work with us</h2>
+        <p>Pick the shape that fits the work. You can change it later; plenty of projects become dedicated teams.</p>
+      </div>
+      <Engage />
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="faq-title">
+    <div class="wrap faq">
+      <h2 id="faq-title">Questions we hear first</h2>
+      <div>
+        <details>
+          <summary>Do you work with clients outside Pakistan?</summary>
+          <p>Yes. Most of our work is remote, with clients and teams in other countries. We agree working hours and a communication rhythm at the start of each project.</p>
+        </details>
+        <details>
+          <summary>Who owns the code?</summary>
+          <p>You do. Source code, designs and documentation are yours, and live in your repositories and accounts from day one.</p>
+        </details>
+        <details>
+          <summary>Can you take over a project someone else started?</summary>
+          <p>Yes. We start with a short review of the codebase and infrastructure, tell you plainly what we found, and then propose how to continue.</p>
+        </details>
+        <details>
+          <summary>How do you price work?</summary>
+          <p>It depends on scope and the way we work together. After the discovery call you get a written plan with an estimate you can compare and approve.</p>
+        </details>
+        <details>
+          <summary>Will you sign an NDA?</summary>
+          <p>Yes, before you share anything confidential.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <CtaBand />
+</Base>
+
+<style>
+  .faq {
+    display: grid;
+    grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
+    gap: var(--s7);
+  }
+
+  .faq h2 {
+    font-size: var(--step-3);
+  }
+
+  details {
+    border-bottom: 1px solid var(--line);
+  }
+
+  details:first-child {
+    border-top: 1px solid var(--line);
+  }
+
+  summary {
+    cursor: pointer;
+    padding: var(--s4) 2rem var(--s4) 0;
+    font-weight: 600;
+    font-size: var(--step-1);
+    list-style: none;
+    position: relative;
+  }
+
+  summary::-webkit-details-marker {
+    display: none;
+  }
+
+  summary::after {
+    content: '+';
+    position: absolute;
+    right: 0.25rem;
+    top: 50%;
+    translate: 0 -50%;
+    font-size: 1.4em;
+    font-weight: 400;
+    color: var(--accent);
+    transition: rotate 0.2s var(--ease);
+  }
+
+  details[open] summary::after {
+    rotate: 45deg;
+  }
+
+  details p {
+    padding-bottom: var(--s5);
+    color: var(--muted);
+  }
+
+  @media (max-width: 860px) {
+    .faq {
+      grid-template-columns: 1fr;
+      gap: var(--s5);
+    }
+  }
+</style>

@@ -1,0 +1,169 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageHead from '../../components/PageHead.astro';
+import CtaBand from '../../components/CtaBand.astro';
+import { services, type Service } from '../../data/services';
+import { work } from '../../data/work';
+
+export function getStaticPaths() {
+  return services.map((s) => ({ params: { slug: s.slug }, props: { service: s } }));
+}
+
+const { service } = Astro.props as { service: Service };
+const related = work.filter((w) => w.services.includes(service.slug)).slice(0, 3);
+const others = services.filter((s) => s.slug !== service.slug);
+---
+<Base title={service.name} description={service.summary}>
+  <PageHead title={service.name} lede={service.intro} crumb={{ href: '/services/', label: 'All services' }} />
+
+  <section class="section">
+    <div class="wrap detail">
+      <div>
+        <h2>What you get</h2>
+        <ul class="ticks">
+          {service.deliverables.map((d) => <li>{d}</li>)}
+        </ul>
+      </div>
+      <div>
+        <h2>When teams call us</h2>
+        <ul class="ticks ticks--muted">
+          {service.calledFor.map((d) => <li>{d}</li>)}
+        </ul>
+        <h2 class="stack-title">Tools we use</h2>
+        <ul class="tags">
+          {service.stack.map((t) => <li>{t}</li>)}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  {related.length > 0 && (
+    <section class="section">
+      <div class="wrap">
+        <h2 class="rel-title">Related work</h2>
+        <ul class="rel">
+          {related.map((w) => (
+            <li>
+              {w.result && <span class="rel__value">{w.result}</span>}
+              <span class="rel__label">{w.resultLabel ?? w.platforms}</span>
+              <h3>{w.title}</h3>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  )}
+
+  <section class="section">
+    <div class="wrap">
+      <h2 class="rel-title">Other services</h2>
+      <ul class="others">
+        {others.map((s) => <li><a href={`/services/${s.slug}/`}>{s.name}</a></li>)}
+      </ul>
+    </div>
+  </section>
+
+  <CtaBand title={`Talk to us about ${service.name.toLowerCase()}.`} />
+</Base>
+
+<style>
+  .detail {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--s7);
+  }
+
+  .detail h2,
+  .rel-title {
+    font-size: var(--step-2);
+    margin-bottom: var(--s5);
+  }
+
+  .stack-title {
+    margin-top: var(--s7);
+  }
+
+  .ticks {
+    list-style: none;
+    display: grid;
+    gap: var(--s3);
+  }
+
+  .ticks li {
+    position: relative;
+    padding-left: 1.6rem;
+  }
+
+  .ticks li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.62em;
+    width: 0.7rem;
+    height: 2px;
+    background: var(--accent);
+  }
+
+  .ticks--muted li {
+    color: var(--muted);
+  }
+
+  .ticks--muted li::before {
+    background: var(--muted);
+  }
+
+  .rel {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--s6);
+  }
+
+  .rel li {
+    display: grid;
+    gap: var(--s2);
+    align-content: start;
+    padding-top: var(--s4);
+    border-top: 2px solid var(--line);
+  }
+
+  .rel__value {
+    font-family: var(--font-display);
+    font-stretch: var(--display-stretch);
+    font-weight: 700;
+    font-style: italic;
+    font-size: var(--step-3);
+    line-height: 1;
+    color: var(--accent);
+  }
+
+  .rel__label {
+    color: var(--muted);
+  }
+
+  .others {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s3);
+  }
+
+  .others a {
+    display: inline-block;
+    padding: var(--s2) var(--s4);
+    border: 1px solid var(--line);
+    border-radius: var(--r-md);
+    text-decoration: none;
+  }
+
+  .others a:hover {
+    border-color: var(--accent);
+  }
+
+  @media (max-width: 860px) {
+    .detail,
+    .rel {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

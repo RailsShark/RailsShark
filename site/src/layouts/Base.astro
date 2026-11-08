@@ -1,0 +1,106 @@
+---
+import '../styles/global.css';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import { site } from '../config/site';
+
+interface Props {
+  title?: string;
+  description?: string;
+  /** Hide from search engines (404 etc). */
+  noindex?: boolean;
+}
+
+const { title, description = site.description, noindex = false } = Astro.props;
+const fullTitle = title ? `${title} | ${site.name}` : `${site.name}: ${site.tagline}`;
+const canonical = new URL(Astro.url.pathname, site.url).href;
+const ogImage = new URL('/og.png', site.url).href;
+
+const orgLd = {
+  '@context': 'https://schema.org',
+  '@type': 'ProfessionalService',
+  name: site.name,
+  url: site.url,
+  logo: new URL('/favicon.svg', site.url).href,
+  email: site.contact.email,
+  foundingDate: String(site.founded),
+  areaServed: 'Worldwide',
+  address: { '@type': 'PostalAddress', addressLocality: 'Islamabad', addressCountry: 'PK' },
+  description: site.description,
+};
+---
+<!doctype html>
+<html lang="en" data-mode="dark">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    {noindex && <meta name="robots" content="noindex" />}
+    <meta name="theme-color" content="#062530" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={site.name} />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <script type="application/ld+json" set:html={JSON.stringify(orgLd)} />
+
+    <!-- Applies saved theme choices before first paint to avoid a flash. -->
+    <script is:inline define:vars={{ labEnabled: site.lab }}>
+      (() => {
+        try {
+          const d = document.documentElement;
+          const ls = localStorage;
+          const mode = ls.getItem('rs-mode');
+          if (mode === 'light' || mode === 'dark') d.dataset.mode = mode;
+          if (!labEnabled) return;
+          const q = new URLSearchParams(location.search).get('lab');
+          if (q === '1') ls.setItem('rs-lab', '1');
+          if (q === '0') ['rs-lab', 'rs-lab-saved'].forEach((k) => ls.removeItem(k));
+          if (ls.getItem('rs-lab') !== '1') return;
+          d.dataset.lab = '1';
+          const saved = JSON.parse(ls.getItem('rs-lab-saved') || 'null');
+          if (!saved) return;
+          const vars = Object.assign({}, saved.common, saved[d.dataset.mode] || {});
+          for (const k in vars) d.style.setProperty(k, vars[k]);
+          for (const k in saved.attrs || {}) d.dataset[k] = saved.attrs[k];
+          if (saved.fontHref) {
+            const l = document.createElement('link');
+            l.rel = 'stylesheet';
+            l.href = saved.fontHref;
+            l.id = 'rs-lab-font';
+            document.head.appendChild(l);
+          }
+        } catch (e) {}
+      })();
+    </script>
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to content</a>
+    <Nav />
+    <main id="main">
+      <slot />
+    </main>
+    <Footer />
+
+    {
+      site.lab && (
+        <script>
+          if (document.documentElement.dataset.lab === '1') {
+            import('../scripts/lab').then((m) => m.mountLab());
+          }
+        </script>
+      )
+    }
+  </body>
+</html>
