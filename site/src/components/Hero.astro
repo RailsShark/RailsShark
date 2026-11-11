@@ -1,4 +1,5 @@
 ---
+import { url } from '../lib/url';
 import { stats } from '../config/site';
 
 /** Where each sounding sits on the chart, in % of the hero box (desktop only). */
@@ -19,8 +20,8 @@ const spots = [
       infrastructure and connected devices for teams around the world.
     </p>
     <div class="hero__actions">
-      <a class="btn" href="/contact/">Start a project</a>
-      <a class="btn btn--ghost" href="/work/">See our work</a>
+      <a class="btn" href={url('/contact/')}>Start a project</a>
+      <a class="btn btn--ghost" href={url('/work/')}>See our work</a>
     </div>
   </div>
 

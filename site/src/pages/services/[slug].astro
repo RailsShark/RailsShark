@@ -1,4 +1,5 @@
 ---
+import { url } from '../../lib/url';
 import Base from '../../layouts/Base.astro';
 import PageHead from '../../components/PageHead.astro';
 import CtaBand from '../../components/CtaBand.astro';
@@ -14,7 +15,7 @@ const related = work.filter((w) => w.services.includes(service.slug)).slice(0, 3
 const others = services.filter((s) => s.slug !== service.slug);
 ---
 <Base title={service.name} description={service.summary}>
-  <PageHead title={service.name} lede={service.intro} crumb={{ href: '/services/', label: 'All services' }} />
+  <PageHead title={service.name} lede={service.intro} crumb={{ href: url('/services/'), label: 'All services' }} />
 
   <section class="section">
     <div class="wrap detail">
@@ -58,7 +59,7 @@ const others = services.filter((s) => s.slug !== service.slug);
     <div class="wrap">
       <h2 class="rel-title">Other services</h2>
       <ul class="others">
-        {others.map((s) => <li><a href={`/services/${s.slug}/`}>{s.name}</a></li>)}
+        {others.map((s) => <li><a href={url(`/services/${s.slug}/`)}>{s.name}</a></li>)}
       </ul>
     </div>
   </section>

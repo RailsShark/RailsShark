@@ -1,4 +1,5 @@
 ---
+import { url } from '../lib/url';
 import Logo from './Logo.astro';
 import { site } from '../config/site';
 import { channels } from '../lib/contact';
@@ -8,24 +9,24 @@ const year = new Date().getFullYear();
 <footer class="foot">
   <div class="wrap foot__grid">
     <div class="foot__brand">
-      <a href="/" class="foot__mark" aria-label={`${site.name} home`}><Logo size={40} /></a>
+      <a href={url('/')} class="foot__mark" aria-label={`${site.name} home`}><Logo size={40} /></a>
       <p>{site.name} is a software engineering studio based in {site.location}, working with teams worldwide since {site.founded}.</p>
     </div>
 
     <nav aria-label="Services">
       <h2>Services</h2>
       <ul>
-        {services.map((s) => <li><a href={`/services/${s.slug}/`}>{s.name}</a></li>)}
+        {services.map((s) => <li><a href={url(`/services/${s.slug}/`)}>{s.name}</a></li>)}
       </ul>
     </nav>
 
     <nav aria-label="Studio">
       <h2>Studio</h2>
       <ul>
-        <li><a href="/work/">Work</a></li>
-        <li><a href="/process/">Process</a></li>
-        <li><a href="/about/">About</a></li>
-        <li><a href="/contact/">Contact</a></li>
+        <li><a href={url('/work/')}>Work</a></li>
+        <li><a href={url('/process/')}>Process</a></li>
+        <li><a href={url('/about/')}>About</a></li>
+        <li><a href={url('/contact/')}>Contact</a></li>
       </ul>
     </nav>
 
@@ -42,7 +43,7 @@ const year = new Date().getFullYear();
   </div>
   <div class="wrap foot__base">
     <span>&copy; {year} {site.name}</span>
-    <a href="/privacy/">App privacy policy</a>
+    <a href={url('/privacy/')}>App privacy policy</a>
   </div>
 </footer>
 

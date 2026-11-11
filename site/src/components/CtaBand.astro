@@ -1,4 +1,5 @@
 ---
+import { url } from '../lib/url';
 import { channels } from '../lib/contact';
 interface Props { title?: string; body?: string }
 const {
@@ -12,7 +13,7 @@ const list = [channels.email, channels.whatsapp, channels.calendly];
     <div>
       <h2 id="cta-title">{title}</h2>
       <p>{body}</p>
-      <a class="btn" href="/contact/">Start a project</a>
+      <a class="btn" href={url('/contact/')}>Start a project</a>
     </div>
     <ul class="cta__channels">
       {list.map((c) => (

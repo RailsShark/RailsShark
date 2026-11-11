@@ -1,6 +1,6 @@
 # RailsShark website
 
-Static site built with [Astro](https://astro.build). No server, almost no JavaScript (about 8 KB on the home page), deployed to Cloudflare Pages.
+Static site built with [Astro](https://astro.build). No server, almost no JavaScript (about 8 KB on the home page). The same code deploys to GitHub Pages (under `/RailsShark/`) and to Cloudflare Pages (at the domain root).
 
 ## Run it locally
 
@@ -22,7 +22,7 @@ Everything editable lives in `src/config/site.ts`:
 | `contact.whatsapp` | Digits only, international format (e.g. `923001234567`). Empty = WhatsApp links fall back to email |
 | `contact.calendly` | Full Calendly URL. Empty = "Book a call" falls back to email. When set, the contact page loads the calendar only when clicked |
 | `contact.web3formsKey` | Free key from web3forms.com. Empty = the contact form opens the visitor's mail app instead |
-| `url` | Update when a custom domain is attached (used for canonical URLs, sitemap and social previews). Also update `public/robots.txt` |
+| `url` | Fallback public origin; builds override it with the `SITE_URL` variable (used for canonical URLs, sitemap, robots.txt and social previews) |
 | `lab` | Design lab on/off for the whole build |
 | `stats` | The four numbers in the hero and on About |
 
@@ -42,6 +42,18 @@ Open any page with `?lab=1` to show the lab button (bottom right). It switches p
 
 The lab code is a separate file that only downloads when the lab is open, so visitors never pay for it.
 
+## Deploy to GitHub Pages
+
+Automatic: every push to `main` runs `.github/workflows/static.yml`, which builds `site/` with `BASE_PATH=/RailsShark` and `SITE_URL=https://railsshark.github.io` and publishes it to https://railsshark.github.io/RailsShark/. Repo Settings > Pages > Source must be "GitHub Actions".
+
+To check a subpath build locally:
+
+```bash
+BASE_PATH=/RailsShark SITE_URL=https://railsshark.github.io npm run build
+```
+
+Internal links go through `url()` in `src/lib/url.ts`; use it for any new link so both hosts keep working.
+
 ## Deploy to Cloudflare Pages
 
 1. Push this branch to GitHub.
@@ -55,8 +67,8 @@ The lab code is a separate file that only downloads when the lab is open, so vis
    - Environment variable: `NODE_VERSION` = `22`
 4. Deploy. The site appears at `<project>.pages.dev`; add a custom domain later under the project's Custom domains tab.
 
-`public/_headers` sets long-term caching for hashed assets and basic security headers. `public/_redirects` maps the old `/privacy.html` URL to `/privacy/`.
+`public/_headers` sets long-term caching for hashed assets and basic security headers (Cloudflare only; GitHub Pages ignores both files).
 
 ## Note on the app privacy policy
 
-The Charliee Technologies app privacy policy is at `/privacy/` (content unchanged). The old GitHub Pages site on `main` keeps serving `/privacy.html` until it is retired, so existing Play Store links stay valid. Update the Play Console link before turning GitHub Pages off.
+The Charliee Technologies app privacy policy is at `/privacy/` (content unchanged). `scripts/postbuild.mjs` also writes it to `/privacy.html`, so the existing Play Store link (https://railsshark.github.io/RailsShark/privacy.html) keeps returning the policy.

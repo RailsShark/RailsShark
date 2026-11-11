@@ -4,8 +4,11 @@
  */
 export const site = {
   name: 'RailsShark',
-  /** Public URL once deployed. Update when a custom domain is attached. */
-  url: 'https://railsshark.pages.dev',
+  /**
+   * Public origin. Set SITE_URL at build time (the GitHub Pages workflow does);
+   * falls back to the Cloudflare Pages address.
+   */
+  url: (typeof process !== 'undefined' && process.env.SITE_URL) || 'https://railsshark.pages.dev',
   founded: 2015,
   location: 'Islamabad, Pakistan',
   tagline: 'Software engineering studio',

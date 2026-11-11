@@ -1,10 +1,11 @@
 ---
+import { url } from '../lib/url';
 import { services } from '../data/services';
 ---
 <ul class="svc">
   {services.map((s) => (
     <li>
-      <a href={`/services/${s.slug}/`} class="svc__row">
+      <a href={url(`/services/${s.slug}/`)} class="svc__row">
         <h3 class="svc__name">{s.name}</h3>
         <p class="svc__summary">{s.summary}</p>
         <p class="svc__stack">{s.stack.slice(0, 4).join(', ')}</p>
