@@ -1,5 +1,5 @@
 /**
- * Design lab definitions. Production ships only the default (Abyss + Chart)
+ * Design lab definitions. Production ships only the default (Abyss + Work Sans)
  * through tokens.css; everything here is loaded only when the lab is open.
  */
 export type Mode = 'dark' | 'light';
@@ -69,18 +69,26 @@ export interface FontPair {
   /** font-stretch for display text; only variable-width families use it. */
   stretch: string;
   weight: number;
+  /** Face, stretch and weight for big numbers. */
+  figures: string;
+  figuresStretch: string;
+  figuresWeight: number;
   /** Google Fonts css2 query. Empty for the self-hosted default. */
   google: string;
 }
 
+const NUNITO = "'Nunito Variable', sans-serif";
+
 export const fontPairs: FontPair[] = [
-  { id: 'chart', name: 'Archivo Expanded + Instrument Sans', display: "'Archivo Variable', sans-serif", body: "'Instrument Sans Variable', sans-serif", stretch: '118%', weight: 800, google: '' },
-  { id: 'bricolage', name: 'Bricolage Grotesque + Instrument Sans', display: "'Bricolage Grotesque', sans-serif", body: "'Instrument Sans Variable', sans-serif", stretch: '100%', weight: 750, google: 'family=Bricolage+Grotesque:opsz,wght@12..96,400..800' },
-  { id: 'fraunces', name: 'Fraunces + Source Sans 3', display: "'Fraunces', serif", body: "'Source Sans 3', sans-serif", stretch: '100%', weight: 650, google: 'family=Fraunces:opsz,wght@9..144,400..800&family=Source+Sans+3:wght@400..700' },
-  { id: 'sora', name: 'Sora', display: "'Sora', sans-serif", body: "'Sora', sans-serif", stretch: '100%', weight: 700, google: 'family=Sora:wght@300..800' },
-  { id: 'plex', name: 'IBM Plex Sans', display: "'IBM Plex Sans', sans-serif", body: "'IBM Plex Sans', sans-serif", stretch: '100%', weight: 650, google: 'family=IBM+Plex+Sans:wght@400..700' },
-  { id: 'syne', name: 'Syne + Manrope', display: "'Syne', sans-serif", body: "'Manrope', sans-serif", stretch: '100%', weight: 800, google: 'family=Syne:wght@500..800&family=Manrope:wght@400..700' },
-  { id: 'newsreader', name: 'Newsreader + Public Sans', display: "'Newsreader', serif", body: "'Public Sans', sans-serif", stretch: '100%', weight: 600, google: 'family=Newsreader:opsz,wght@6..72,400..700&family=Public+Sans:wght@400..700' },
+  { id: 'work', name: 'Work Sans + Nunito numbers', display: "'Work Sans Variable', sans-serif", body: "'Instrument Sans Variable', sans-serif", stretch: '100%', weight: 700, figures: NUNITO, figuresStretch: '100%', figuresWeight: 800, google: '' },
+  { id: 'chart', name: 'Archivo Expanded + Instrument Sans', display: "'Archivo', sans-serif", body: "'Instrument Sans Variable', sans-serif", stretch: '118%', weight: 800, figures: "'Archivo', sans-serif", figuresStretch: '118%', figuresWeight: 700, google: 'family=Archivo:wdth,wght@62..125,100..900' },
+  { id: 'dmsans', name: 'DM Sans + Nunito numbers', display: "'DM Sans', sans-serif", body: "'Instrument Sans Variable', sans-serif", stretch: '100%', weight: 700, figures: NUNITO, figuresStretch: '100%', figuresWeight: 800, google: 'family=DM+Sans:opsz,wght@9..40,400..800' },
+  { id: 'bricolage', name: 'Bricolage Grotesque + Instrument Sans', display: "'Bricolage Grotesque', sans-serif", body: "'Instrument Sans Variable', sans-serif", stretch: '100%', weight: 750, figures: "'Bricolage Grotesque', sans-serif", figuresStretch: '100%', figuresWeight: 700, google: 'family=Bricolage+Grotesque:opsz,wght@12..96,400..800' },
+  { id: 'fraunces', name: 'Fraunces + Source Sans 3', display: "'Fraunces', serif", body: "'Source Sans 3', sans-serif", stretch: '100%', weight: 650, figures: "'Fraunces', serif", figuresStretch: '100%', figuresWeight: 650, google: 'family=Fraunces:opsz,wght@9..144,400..800&family=Source+Sans+3:wght@400..700' },
+  { id: 'sora', name: 'Sora', display: "'Sora', sans-serif", body: "'Sora', sans-serif", stretch: '100%', weight: 700, figures: "'Sora', sans-serif", figuresStretch: '100%', figuresWeight: 700, google: 'family=Sora:wght@300..800' },
+  { id: 'plex', name: 'IBM Plex Sans', display: "'IBM Plex Sans', sans-serif", body: "'IBM Plex Sans', sans-serif", stretch: '100%', weight: 650, figures: "'IBM Plex Sans', sans-serif", figuresStretch: '100%', figuresWeight: 650, google: 'family=IBM+Plex+Sans:wght@400..700' },
+  { id: 'syne', name: 'Syne + Manrope', display: "'Syne', sans-serif", body: "'Manrope', sans-serif", stretch: '100%', weight: 800, figures: "'Syne', sans-serif", figuresStretch: '100%', figuresWeight: 700, google: 'family=Syne:wght@500..800&family=Manrope:wght@400..700' },
+  { id: 'newsreader', name: 'Newsreader + Public Sans', display: "'Newsreader', serif", body: "'Public Sans', sans-serif", stretch: '100%', weight: 600, figures: "'Newsreader', serif", figuresStretch: '100%', figuresWeight: 600, google: 'family=Newsreader:opsz,wght@6..72,400..700&family=Public+Sans:wght@400..700' },
 ];
 
 export const radii = [
@@ -106,7 +114,7 @@ export const defaults = {
   palette: 'abyss',
   mode: 'dark' as Mode,
   accent: '',
-  font: 'chart',
+  font: 'work',
   radius: 'soft',
   density: 'regular',
   scale: 'major-third',

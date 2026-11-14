@@ -13,7 +13,7 @@ export const site = {
   location: 'Islamabad, Pakistan',
   tagline: 'Software engineering studio',
   description:
-    'RailsShark designs, builds and runs mobile apps, backends, cloud infrastructure and connected devices for teams worldwide.',
+    'RailsShark designs, builds and runs mobile apps, backends, cloud infrastructure and connected devices for teams and institutions worldwide.',
 
   contact: {
     /** Placeholder until a domain mailbox exists. */
