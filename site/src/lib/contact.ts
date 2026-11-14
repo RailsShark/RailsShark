@@ -14,7 +14,7 @@ export const channels = {
   },
   whatsapp: {
     label: 'WhatsApp',
-    value: whatsapp ? `+${whatsapp}` : 'Message us',
+    value: whatsapp ? `+${whatsapp.slice(0, 2)} ${whatsapp.slice(2, 5)} ${whatsapp.slice(5)}` : 'Message us',
     href: whatsapp
       ? `https://wa.me/${whatsapp}?text=${encodeURIComponent('Hi RailsShark, I would like to talk about a project.')}`
       : mailto('WhatsApp contact request'),

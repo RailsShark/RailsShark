@@ -1,49 +1,389 @@
 ---
 import Base from '../layouts/Base.astro';
 import PageHead from '../components/PageHead.astro';
+import { site } from '../config/site';
+
+const effective = '15 November 2026';
+const { email, whatsapp } = site.contact;
+const waDisplay = whatsapp ? `+${whatsapp.slice(0, 2)} ${whatsapp.slice(2, 5)} ${whatsapp.slice(5)}` : '';
+
+const toc = [
+  ['who', 'Who we are'],
+  ['short', 'The short version'],
+  ['collect', 'What we collect and why'],
+  ['apps', 'Our apps (Charliee Technologies)'],
+  ['clients', 'Data we handle for clients'],
+  ['share', 'Who we share it with'],
+  ['transfers', 'International transfers'],
+  ['retention', 'How long we keep it'],
+  ['security', 'How we protect it'],
+  ['rights', 'Your rights'],
+  ['eu', 'Europe (GDPR)'],
+  ['us', 'United States'],
+  ['au', 'Australia'],
+  ['adm', 'Automated decisions and AI'],
+  ['children', 'Children'],
+  ['changes', 'Changes to this policy'],
+  ['contact', 'Contact us'],
+];
 ---
-<Base title="App privacy policy" description="Privacy policy for mobile applications published by Charliee Technologies.">
-  <PageHead title="Privacy policy" />
+<Base
+  title="Privacy policy"
+  description="How RailsShark and the apps it publishes as Charliee Technologies collect, use and protect personal information, including rights under GDPR, US state privacy laws and the Australian Privacy Act."
+>
+  <PageHead
+    title="Privacy policy"
+    lede="How RailsShark handles personal information on this website, in client work, and in the mobile apps we publish on Google Play as Charliee Technologies."
+  >
+    <p class="meta">Effective {effective}. Replaces the Charliee Technologies app policy of 26 August 2025.</p>
+  </PageHead>
+
   <section class="section">
-    <div class="wrap prose">
-      <p><strong>Effective Date:</strong> August 26, 2025<br />
-      <strong>Company:</strong> Charliee Technologies</p>
+    <div class="wrap policy">
+      <nav class="toc" aria-label="On this page">
+        <p class="toc__title">On this page</p>
+        <ol>
+          {toc.map(([id, label]) => <li><a href={`#${id}`}>{label}</a></li>)}
+        </ol>
+      </nav>
 
-      <p>Charliee Technologies ("we," "our," or "us") values your privacy. This Privacy Policy explains how our mobile applications handle information and permissions.</p>
+      <div class="prose">
+        <h2 id="who">Who we are</h2>
+        <p>
+          RailsShark is a software engineering studio based in Islamabad, Pakistan. We publish our own mobile apps on
+          Google Play under the developer name Charliee Technologies. In this policy, "RailsShark", "we" and "us" cover both.
+        </p>
+        <p>
+          For the personal information described here, RailsShark is the controller: we decide why and how it is used.
+          The one exception is data we handle on behalf of clients, explained in <a href="#clients">Data we handle for clients</a>.
+        </p>
+        <ul>
+          <li>Email: <a href={`mailto:${email}`}>{email}</a></li>
+          {whatsapp && <li>WhatsApp: <a href={`https://wa.me/${whatsapp}`} rel="noopener">{waDisplay}</a></li>}
+          <li>App questions can also go to <a href="mailto:charlieetechnologies@gmail.com">charlieetechnologies@gmail.com</a></li>
+        </ul>
 
-      <h3>Information We Collect</h3>
-      <p>We do not collect, store, or sell any sensitive personal data such as passwords, financial information, or personal identifiers. Some of our apps may request access to certain device permissions (e.g., camera, location, storage, microphone) solely for the purpose of providing app functionality.</p>
+        <h2 id="short">The short version</h2>
+        <ul>
+          <li>We collect only what we need to reply to you, run projects and operate our apps.</li>
+          <li>This website uses no cookies, no analytics and no advertising trackers.</li>
+          <li>We do not sell personal information, share it for targeted advertising, or use it to train AI models.</li>
+          <li>We do not make automated decisions that significantly affect you.</li>
+          <li>You can ask to see, correct, export or delete your information at any time, wherever you live.</li>
+        </ul>
 
-      <h3>How Permissions Are Used</h3>
-      <ul>
-        <li><strong>Location:</strong> Used only for location-based features. We do not track or share your location.</li>
-        <li><strong>Camera &amp; Microphone:</strong> Used for in-app features such as taking photos or recording. We do not transmit or store media outside your device.</li>
-        <li><strong>Storage/Files:</strong> Used to save files or settings on your device. We do not upload your personal files.</li>
-        <li><strong>Other Permissions:</strong> Strictly tied to app functionality and never used for data collection.</li>
-      </ul>
+        <h2 id="collect">What we collect and why</h2>
+        <div class="table">
+          <table>
+            <thead>
+              <tr>
+                <th scope="col">When</th>
+                <th scope="col">What we collect</th>
+                <th scope="col">Why</th>
+                <th scope="col">Legal basis (GDPR)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">You contact us by form, email or WhatsApp, or book a call</th>
+                <td>Name, email address, phone number (WhatsApp), company, your message, and the meeting time you choose</td>
+                <td>To reply, understand your project and prepare a proposal</td>
+                <td>Our legitimate interest in answering enquiries, and steps you ask us to take before a contract</td>
+              </tr>
+              <tr>
+                <th scope="row">You become a client</th>
+                <td>Business contact details, contract terms, project communication, invoices and payment records</td>
+                <td>To deliver the work, bill for it and keep proper business records</td>
+                <td>Performance of our contract with you, and our legal obligations (tax and accounting)</td>
+              </tr>
+              <tr>
+                <th scope="row">You visit this website</th>
+                <td>Technical data our hosting provider records automatically: IP address, browser type, pages requested and time of request</td>
+                <td>To deliver pages, keep the site secure and investigate abuse</td>
+                <td>Our legitimate interest in running a secure website</td>
+              </tr>
+              <tr>
+                <th scope="row">You change the site's appearance</th>
+                <td>Your dark or light mode choice and any design preview settings, stored only in your own browser</td>
+                <td>To remember the look you picked</td>
+                <td>Necessary for a feature you asked for. It never reaches us, and clearing your browser data removes it</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p>
+          We collect this information from you directly, or from your device when you use the website or our apps. We do not
+          buy personal information or collect it from data brokers. We do not ask for, and ask you not to send, sensitive
+          information such as health, financial account or government ID details in an enquiry.
+        </p>
 
-      <h3>Data Transmission</h3>
-      <p>We do not transmit user data to external servers unless explicitly required for the app’s intended functionality (e.g., cloud sync). If transmission is required, we clearly inform users and ensure secure handling.</p>
+        <h2 id="apps">Our apps (Charliee Technologies)</h2>
+        <p>
+          Our apps are built to work on your device. We do not collect, store or sell sensitive personal information such as
+          passwords, financial information or personal identifiers through them.
+        </p>
+        <ul>
+          <li><strong>Location</strong> is used only for location-based features. We do not track or share your location.</li>
+          <li><strong>Camera and microphone</strong> are used only for in-app features such as taking photos or recording. Media stays on your device.</li>
+          <li><strong>Storage and files</strong> are used to save files or settings on your device. We do not upload your personal files.</li>
+          <li><strong>Other permissions</strong> are used only for the feature that needs them, never for data collection.</li>
+        </ul>
+        <p>
+          If an app needs to send data to a server, for example to sync between devices, the app tells you before it does so,
+          and the data is sent over an encrypted connection. Some apps include third-party services such as analytics or ads.
+          Where they do, the app's Google Play listing and in-app notices name them, those services handle data under their own
+          privacy policies, and we ask for your consent first where the law requires it.
+        </p>
+        <p>You can manage or withdraw app permissions at any time in your device settings. The app keeps working wherever it can without them.</p>
 
-      <h3>Third-Party Services</h3>
-      <p>Some apps may integrate third-party services such as analytics or ads. These services have their own privacy policies, which we encourage you to review.</p>
+        <h2 id="clients">Data we handle for clients</h2>
+        <p>
+          When we build or support software for a client, we may handle personal information about that client's own users.
+          In that work the client is the controller and RailsShark is a processor: we use the data only on the client's written
+          instructions, only for the project, and we return or delete it when the work ends. If you are a user of a client's
+          product, please contact that client first. We will help them respond to you.
+        </p>
 
-      <h3>Children’s Privacy</h3>
-      <p>Our apps are not directed toward children under 13. We do not knowingly collect data from children.</p>
+        <h2 id="share">Who we share it with</h2>
+        <p>We share personal information only with service providers that help us run RailsShark, and only what each one needs:</p>
+        <ul>
+          <li><strong>Google</strong>: email (Gmail) and app distribution (Google Play)</li>
+          <li><strong>Meta</strong>: WhatsApp messages</li>
+          <li><strong>GitHub</strong> and <strong>Cloudflare</strong>: hosting and delivery of this website</li>
+          <li><strong>Web3Forms</strong>: delivering contact form messages to our inbox, when the form is connected</li>
+          <li><strong>Calendly</strong>: scheduling calls, when you book through it</li>
+          <li><strong>Google Fonts</strong>: only if you open the site's design preview and choose an alternative typeface</li>
+        </ul>
+        <p>
+          We may also disclose information if the law requires it, to protect our rights or the safety of others, or to a
+          successor if RailsShark is merged or sold, in which case this policy continues to apply. We do not sell personal
+          information and have not done so in the past 12 months.
+        </p>
 
-      <h3>Your Choices</h3>
-      <p>You can manage or revoke app permissions anytime through your device settings. Revoking permissions may limit some app features but the app will remain functional where possible.</p>
+        <h2 id="transfers">International transfers</h2>
+        <p>
+          We are based in Pakistan, and most of our service providers are in the United States. Your information may therefore
+          be processed in Pakistan, the United States and other countries where those providers operate, which may have
+          different data protection laws from yours.
+        </p>
+        <p>
+          For information from the European Economic Area or the UK, our US providers rely on the EU-US Data Privacy Framework
+          (and its UK extension) or on the European Commission's Standard Contractual Clauses. Wherever your information goes,
+          we apply the protections in this policy.
+        </p>
 
-      <h3>Changes to This Policy</h3>
-      <p>We may update this Privacy Policy from time to time. Updates will be reflected in the "Effective Date" above.</p>
+        <h2 id="retention">How long we keep it</h2>
+        <ul>
+          <li><strong>Enquiries</strong> that do not lead to a project: up to 24 months after our last contact.</li>
+          <li><strong>Client and contract records</strong>, including invoices: for the length of the engagement, then up to 7 years to meet tax and accounting rules.</li>
+          <li><strong>Client project data</strong> we process as a processor: until the project ends, then returned or deleted as the client instructs.</li>
+          <li><strong>Website technical logs</strong>: kept by our hosting providers for their short standard periods.</li>
+          <li><strong>Preferences in your browser</strong>: until you clear them.</li>
+        </ul>
+        <p>When information is no longer needed, we delete it or make it anonymous.</p>
 
-      <h3>Contact Us</h3>
-      <p>If you have questions about this Privacy Policy, please contact us:</p>
-      <ul>
-        <li><strong>Charliee Technologies</strong></li>
-        <li>Email: charlieetechnologies@gmail.com</li>
-        <li><a href="https://play.google.com/store/apps/dev?id=6060324166125978225">Website</a></li>
-      </ul>
+        <h2 id="security">How we protect it</h2>
+        <p>
+          We use encrypted connections (HTTPS) for this website, two-factor authentication on the accounts that hold your
+          information, access limited to the people who need it, and as little data as the job requires. No system is
+          perfectly secure. If a breach affects your information, we will tell you and the relevant regulators as the law requires.
+        </p>
+
+        <h2 id="rights">Your rights</h2>
+        <p>Wherever you live, you can ask us to:</p>
+        <ul>
+          <li>tell you what personal information we hold about you and give you a copy</li>
+          <li>correct anything that is inaccurate or incomplete</li>
+          <li>delete your information</li>
+          <li>give you your information in a portable format</li>
+          <li>stop using it for a particular purpose</li>
+        </ul>
+        <p>
+          Email <a href={`mailto:${email}`}>{email}</a> to make a request. We may need to confirm your identity first, and we
+          never charge for a reasonable request or treat you differently for making one. Some laws give you additional rights,
+          set out below.
+        </p>
+
+        <h3 id="eu">Europe: European Economic Area, Switzerland and UK (GDPR)</h3>
+        <ul>
+          <li>You have the rights of access, rectification, erasure, restriction, data portability and objection under the GDPR and UK GDPR.</li>
+          <li>You can object at any time to processing based on our legitimate interests, and withdraw any consent you have given without affecting earlier processing.</li>
+          <li>We reply within one month. For complex requests we may extend this by up to two more months and will tell you why.</li>
+          <li>You can complain to the data protection authority where you live or work. In the UK this is the Information Commissioner's Office. We would appreciate the chance to resolve it with you first.</li>
+        </ul>
+
+        <h3 id="us">United States</h3>
+        <p>
+          Many US states, including California, Colorado, Connecticut, Virginia, Texas and Oregon, give residents privacy rights.
+          We extend the following to every US resident, whether or not a state law requires it of a business our size:
+        </p>
+        <ul>
+          <li>Rights to know and access, correct, delete and obtain a portable copy of your personal information.</li>
+          <li>The right to opt out of the sale of personal information, sharing for cross-context behavioural advertising, targeted advertising and profiling. We do none of these, so there is nothing to opt out of, and we honour Global Privacy Control signals in any case.</li>
+          <li>We do not use or disclose sensitive personal information to infer characteristics about you.</li>
+          <li>You can use an authorised agent to make a request; we may ask for proof of their authority.</li>
+          <li>We respond within 45 days. If we decline your request, you can appeal by replying with the word "Appeal". If you remain unsatisfied, you can contact your state attorney general.</li>
+        </ul>
+        <p>
+          In the past 12 months we have collected these categories of personal information: identifiers (such as name, email
+          address and IP address), professional information (such as company and role), commercial information (such as
+          contracts and invoices), and internet activity on this website (server logs). We collected them for the purposes in
+          <a href="#collect">What we collect and why</a> and disclosed them only to the service providers listed above.
+        </p>
+
+        <h3 id="au">Australia</h3>
+        <ul>
+          <li>We handle personal information in line with the Australian Privacy Principles in the Privacy Act 1988 (Cth).</li>
+          <li>You can deal with us anonymously or under a pseudonym where that is practical, though we need some way to contact you to reply.</li>
+          <li>You can request access to and correction of your personal information. We reply within 30 days.</li>
+          <li>Your information may be disclosed to recipients overseas, mainly in Pakistan and the United States, as described in <a href="#transfers">International transfers</a>.</li>
+          <li>To make a complaint, email us with the details. We will respond within 30 days. If you are not satisfied, you can complain to the Office of the Australian Information Commissioner at <a href="https://www.oaic.gov.au" rel="noopener">oaic.gov.au</a>.</li>
+        </ul>
+
+        <h2 id="adm">Automated decisions and AI</h2>
+        <p>
+          We do not use computer programs to make, or substantially help make, decisions that significantly affect your rights
+          or interests, including decisions with legal or similarly significant effects under GDPR Article 22 and decisions
+          covered by Australian Privacy Principle 1.7. We do not use personal information to train AI models. If this changes,
+          we will update this policy before we start.
+        </p>
+
+        <h2 id="children">Children</h2>
+        <p>
+          This website and our services are for businesses and adults. Our apps are not directed at children under 13, and we
+          do not knowingly collect personal information from them. If you believe a child has sent us personal information,
+          contact us and we will delete it.
+        </p>
+
+        <h2 id="changes">Changes to this policy</h2>
+        <p>
+          We will update this policy when our practices or the law change, and show the new effective date at the top. If a
+          change materially affects how we use information you have already given us, we will tell you directly where we can.
+        </p>
+
+        <h2 id="contact">Contact us</h2>
+        <p>For any privacy question or request:</p>
+        <ul>
+          <li>Email: <a href={`mailto:${email}`}>{email}</a></li>
+          {whatsapp && <li>WhatsApp: <a href={`https://wa.me/${whatsapp}`} rel="noopener">{waDisplay}</a></li>}
+          <li>RailsShark, Islamabad, Pakistan</li>
+        </ul>
+      </div>
     </div>
   </section>
 </Base>
+
+<style>
+  .meta {
+    margin-top: var(--s4);
+    color: var(--muted);
+    font-size: var(--step--1);
+  }
+
+  .policy {
+    display: grid;
+    grid-template-columns: minmax(0, 15rem) minmax(0, 1fr);
+    gap: var(--s7);
+    align-items: start;
+  }
+
+  .toc {
+    position: sticky;
+    top: 6rem;
+    font-size: 0.93rem;
+  }
+
+  .toc__title {
+    font-weight: 600;
+    margin-bottom: var(--s3);
+  }
+
+  .toc ol {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: var(--s2);
+    border-left: 2px solid var(--line);
+  }
+
+  .toc a {
+    display: block;
+    padding-left: var(--s4);
+    color: var(--muted);
+    text-decoration: none;
+  }
+
+  .toc a:hover {
+    color: var(--ink);
+  }
+
+  .prose {
+    max-width: 46rem;
+  }
+
+  .prose h2 {
+    scroll-margin-top: 6rem;
+  }
+
+  .prose h2:first-child {
+    margin-top: 0;
+  }
+
+  .prose h3 {
+    font-size: var(--step-1);
+    scroll-margin-top: 6rem;
+  }
+
+  .table {
+    overflow-x: auto;
+    margin-block: var(--s5);
+    border: 1px solid var(--line);
+    border-radius: var(--r-md);
+  }
+
+  table {
+    width: 100%;
+    min-width: 40rem;
+    border-collapse: collapse;
+    font-size: 0.93rem;
+    line-height: 1.5;
+  }
+
+  th,
+  td {
+    text-align: left;
+    vertical-align: top;
+    padding: var(--s3) var(--s4);
+    border-bottom: 1px solid var(--line);
+  }
+
+  thead th {
+    background: var(--surface);
+    font-weight: 600;
+  }
+
+  tbody th {
+    font-weight: 600;
+  }
+
+  tbody tr:last-child > * {
+    border-bottom: 0;
+  }
+
+  td {
+    color: var(--muted);
+  }
+
+  @media (max-width: 960px) {
+    .policy {
+      grid-template-columns: 1fr;
+    }
+    .toc {
+      position: static;
+    }
+    .toc ol {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+</style>

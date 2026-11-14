@@ -19,7 +19,7 @@ export const site = {
     /** Placeholder until a domain mailbox exists. */
     email: 'railsshark@gmail.com',
     /** International format, digits only, e.g. "923001234567". Empty = not set up. */
-    whatsapp: '',
+    whatsapp: '923325987829',
     /** Full Calendly URL, e.g. "https://calendly.com/railsshark/30min". Empty = not set up. */
     calendly: '',
     /** Web3Forms access key (https://web3forms.com). Empty = form opens the visitor's mail app instead. */

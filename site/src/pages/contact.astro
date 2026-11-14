@@ -1,4 +1,5 @@
 ---
+import { url } from '../lib/url';
 import Base from '../layouts/Base.astro';
 import PageHead from '../components/PageHead.astro';
 import { site } from '../config/site';
@@ -80,7 +81,7 @@ const { web3formsKey, calendly, email } = site.contact;
           </li>
         </ul>
         <div class="calendly" hidden></div>
-        <p class="side__note">We use your details only to reply to you. Nothing is added to a mailing list.</p>
+        <p class="side__note">We use your details only to reply to you. Nothing is added to a mailing list. See our <a href={url('/privacy/')}>privacy policy</a>.</p>
       </aside>
     </div>
   </section>
