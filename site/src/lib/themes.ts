@@ -119,6 +119,5 @@ export const defaults = {
   density: 'regular',
   scale: 'major-third',
   motion: 'on',
-  contours: 'on',
 };
 export type LabState = typeof defaults;

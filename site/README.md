@@ -34,7 +34,7 @@ Content:
 
 ## Design lab
 
-Open any page with `?lab=1` to show the lab button (bottom right). It switches palette, dark/light, accent colour, typefaces, type scale, corners, spacing, motion and the hero contours. Choices persist in that browser only.
+Open any page with `?lab=1` to show the lab button (bottom right). It switches palette, dark/light, accent colour, typefaces, type scale, corners, spacing and motion. Choices persist in that browser only.
 
 - **Copy settings** copies the chosen tokens so they can be made the default in `src/styles/global.css`.
 - **Exit lab** or `?lab=0` hides it again and resets.

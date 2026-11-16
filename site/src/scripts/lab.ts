@@ -73,7 +73,6 @@ function apply(state: LabState) {
   const vars = { ...common, ...toVars(tokensFor(state, mode)) };
   for (const [k, v] of Object.entries(vars)) root.style.setProperty(k, v);
   root.dataset.motion = state.motion;
-  root.dataset.contours = state.contours;
 
   const href = fontHref(state);
   let link = document.getElementById('rs-lab-font') as HTMLLinkElement | null;
@@ -97,7 +96,7 @@ function apply(state: LabState) {
         common,
         dark: toVars(tokensFor(state, 'dark')),
         light: toVars(tokensFor(state, 'light')),
-        attrs: { motion: state.motion, contours: state.contours },
+        attrs: { motion: state.motion },
         fontHref: href,
       }),
     );
@@ -110,7 +109,6 @@ function reset() {
   } catch {}
   root.removeAttribute('style');
   delete root.dataset.motion;
-  delete root.dataset.contours;
   document.getElementById('rs-lab-font')?.remove();
 }
 
@@ -123,7 +121,7 @@ function exportText(state: LabState) {
     `Default mode: ${root.dataset.mode}`,
     `Type: ${f.name}`,
     `Corners: ${state.radius}, density: ${state.density}, type scale: ${state.scale}`,
-    `Motion: ${state.motion}, hero contours: ${state.contours}`,
+    `Motion: ${state.motion}`,
     '',
     ':root {',
     ...Object.entries({ ...commonVars(state), ...toVars(tokensFor(state, 'dark')) }).map(([k, v]) => `  ${k}: ${v};`),
@@ -296,12 +294,6 @@ export function mountLab() {
     body.append(group('Spacing', segmented(densities, state.density, (id) => update({ density: id }))));
     body.append(
       group('Motion', segmented([{ id: 'on', name: 'On' }, { id: 'off', name: 'Off' }], state.motion, (id) => update({ motion: id }))),
-    );
-    body.append(
-      group(
-        'Hero contours',
-        segmented([{ id: 'on', name: 'Show' }, { id: 'off', name: 'Hide' }], state.contours, (id) => update({ contours: id })),
-      ),
     );
 
     foot.replaceChildren();

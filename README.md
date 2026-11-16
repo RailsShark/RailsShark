@@ -15,16 +15,14 @@ and connected devices for teams and institutions around the world, since 2015.
 
 [![Deploy](https://github.com/RailsShark/RailsShark/actions/workflows/static.yml/badge.svg?branch=main)](https://github.com/RailsShark/RailsShark/actions/workflows/static.yml)
 ![Astro](https://img.shields.io/badge/Built_with-Astro-062530?logo=astro&logoColor=f2c14e&labelColor=0a3240)
-![Performance](https://img.shields.io/badge/Lighthouse_performance-98-0d6e7c?labelColor=062530)
+![Performance](https://img.shields.io/badge/Lighthouse_performance-97-0d6e7c?labelColor=062530)
 ![Accessibility](https://img.shields.io/badge/Accessibility-100-0d6e7c?labelColor=062530)
 ![SEO](https://img.shields.io/badge/SEO-100-0d6e7c?labelColor=062530)
-![JavaScript](https://img.shields.io/badge/JavaScript-%3C10_KB_gzipped-f2c14e?labelColor=062530)
+![JavaScript](https://img.shields.io/badge/JavaScript-~2_KB_gzipped-f2c14e?labelColor=062530)
 
 <br />
 
-<img src=".github/readme/hero.webp" width="100%" alt="The RailsShark home page: a depth chart of contour lines drifts behind the headline, and a sonar ring spreads out where the visitor clicks" />
-
-<sub>The hero is a live depth chart. Move your cursor to nudge the seabed, click the water to send a sonar ping.</sub>
+<a href="https://railsshark.github.io/RailsShark/"><img src=".github/readme/hero.jpg" width="100%" alt="The RailsShark home page: the headline Software that holds up at depth, two buttons, and a row of four figures: 2015, 50+ apps shipped, 1M+ people using them, 99% crash-free sessions" /></a>
 
 </div>
 
@@ -72,8 +70,8 @@ This repository is the site itself, and it is built the way we build for clients
 
 <img src=".github/readme/mobile-showcase.jpg" width="100%" alt="Three phone screens: the home page in light mode, the services list in dark mode, and the design lab panel showing six colour palettes" />
 
-- **A depth chart, not a stock photo.** The hero draws contour lines with a marching-squares pass over animated noise on a canvas. It pauses when off screen or in a background tab, and stays still for anyone who prefers reduced motion.
-- **Almost no JavaScript.** Every page is static HTML. Scripts load only where they do something, such as the chart, the menu, the theme switch and the contact form: under 10 KB gzipped in total.
+- **Type first, no stock photos.** Every page opens with words on a single colour field: Work Sans headings, Nunito figures and Instrument Sans text, all self-hosted. Nothing decorative stands between a visitor and the first paint.
+- **Almost no JavaScript.** Every page is static HTML. Scripts load only where they do something, such as the menu, the theme switch and the contact form. The home page ships about 2 KB of JavaScript, gzipped.
 - **A design lab built in.** Open any page with [`?lab=1`](https://railsshark.github.io/RailsShark/?lab=1) to try six palettes, dark and light modes, any accent colour, seven type pairings, type scale, corners, spacing and motion, live. The lab only downloads when it is opened.
 - **Smooth by default.** Native cross-page view transitions and hover prefetching make navigation feel instant, with no client-side router.
 - **Accessible.** Real headings and landmarks, visible keyboard focus, a skip link, and respect for system motion settings. Lighthouse scores it 100 for accessibility.
@@ -97,11 +95,11 @@ Measured with Lighthouse 12 on the mobile profile (throttled CPU and network).
 
 | Performance | Accessibility | Best practices | SEO |
 | :-: | :-: | :-: | :-: |
-| **98** | **100** | **100** | **100** |
+| **97** | **100** | **100** | **100** |
 
 ### Built with
 
-[Astro](https://astro.build) for static pages, TypeScript, plain CSS custom properties for theming, a canvas for the hero, self-hosted Work Sans, Nunito and Instrument Sans fonts, and GitHub Actions for deployment.
+[Astro](https://astro.build) for static pages, TypeScript, plain CSS custom properties for theming, self-hosted Work Sans, Nunito and Instrument Sans fonts, and GitHub Actions for deployment.
 
 ## Repository map
 
@@ -112,7 +110,7 @@ Measured with Lighthouse 12 on the mobile profile (throttled CPU and network).
 │   │   ├── pages/            Home, services, work, process, about, contact, privacy
 │   │   ├── components/       Hero, navigation, service index, work list, call to action
 │   │   ├── data/             Services, track record and process content
-│   │   ├── scripts/          Contour chart and design lab
+│   │   ├── scripts/          Design lab
 │   │   ├── styles/           Design tokens and global styles
 │   │   └── config/site.ts    Contact details, links and switches
 │   └── README.md             Developer guide
